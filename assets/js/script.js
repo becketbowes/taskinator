@@ -190,9 +190,6 @@ var editTask = function(taskId) {
   formEl.setAttribute("data-task-id", taskId);
   // update form's button to reflect editing a task rather than creating a new one
   formEl.querySelector("#save-task").textContent = "Save Task";
-
-    //record to local storage
-    saveTasks();
 };
 
 var deleteTask = function(taskId) {
@@ -221,6 +218,26 @@ var deleteTask = function(taskId) {
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+var loadTasks = function() {
+  var oldTasks = localStorage.getItem("tasks");
+  if (!oldTasks) {return false;}
+  oldTasks = JSON.parse(oldTasks);
+  for (var i = 0; i < oldTasks.length; i++) {
+    createTaskEl(oldTasks[i]);
+  }
+
+
+
+  // var oldTasks = JSON.parse(localStorage.getItem("tasks"));
+  //   if (!oldTasks) {
+  //     return false;
+  //   };
+  //   for (var i = 0; i < oldTasks.length; i++); {
+  //   };
+  //   createTaskEl(oldTasks[i]);
+};
+loadTasks();
 
 // Create a new task
 formEl.addEventListener("submit", taskFormHandler);
